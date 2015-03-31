@@ -2,10 +2,14 @@
 
 (require scribble/eval)
 
-(provide package-examples)
+(provide define-custom-examples)
 
-(define generic-syntax-expanders-eval (make-base-eval))
-(generic-syntax-expanders-eval '(require generic-syntax-expanders))
+(define-syntax-rule (define-custom-examples id require-spec ...)
+  (begin
+    (define custom-eval (make-base-eval))
+    (custom-eval '(require require-spec)) ...
+    (define-custom-example-eval id custom-eval)))
 
-(define-syntax-rule (package-examples example-body ...)
-  (examples #:eval generic-syntax-expanders-eval example-body ...))
+(define-syntax-rule (define-custom-example-eval id eval)
+  (define-syntax-rule (id body (... ...))
+    (examples #:eval eval body (... ...))))
