@@ -1,8 +1,7 @@
 #lang info
 
 (define collection 'multi)
-(define deps '("base" "rackunit-lib" "mischief"))
+(define deps '("base" "rackunit-lib" "mischief" "scribble-lib" "scribble-text-lib"))
 (define build-deps '("cover"
-                     "scribble-lib"
                      "rackunit-lib"
                      "racket-doc"))
